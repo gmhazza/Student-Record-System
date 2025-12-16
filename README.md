@@ -105,8 +105,8 @@ g++ main.cpp -o student_manager
 ## 👨‍🎓 Author
 
 **Muhammad Hazza Shabir**
-
 **Abdul Manan**
+
 BS Software Engineering (1st Semester)
 
 ---
