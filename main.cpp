@@ -10,7 +10,8 @@ using namespace std;
 
 
 // Struct to represent a student record
-struct Student {
+struct Student
+{
     string id;
     string name;
     int marks[3];  // Marks for 3 subjects
@@ -32,14 +33,16 @@ void loadFromFile(vector<Student>&, string&);
 
 
 // Main function with menu
-int main() {
+int main()
+{
 	system("color 2");
     vector<Student> students;
     string filename = "students.txt";
     loadFromFile(students, filename);  // Load on startup
 
     int choice;
-    do {
+    do
+    {
     	system("cls");
         cout << "\nStudent Record Management System" << endl;
         cout << "1. Add Student" << endl;
@@ -51,7 +54,8 @@ int main() {
         cout << "Enter choice: ";
         cin >> choice;
 
-        switch (choice) {
+        switch (choice)
+        {
             case 1: addStudent(students); break;
             case 2: displayStudents(students); break;
             case 3: searchStudent(students); break;
@@ -60,8 +64,8 @@ int main() {
             case 6: saveToFile(students, filename); cout << "Exiting..." << endl; break;
             default: wrongOptionError(); break;
         }
-    } while (choice != 6);
-
+    }while (choice != 6);
+    
     return 0;
 }
 
@@ -89,21 +93,28 @@ void printWithDelay(string data, int delay)
 // Function to calculate total and grade for a student
 void calculateTotalAndGrade(Student& s) {
     s.total = 0;
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++)
+    {
         s.total += s.marks[i];
     }
     // Percentage based on 300 marks
     s.percentage = (float)(((float)s.total / 300) * 100);
     // Grade Calculation
-    if (s.total >= 240) s.grade = 'A';
-    else if (s.total >= 180) s.grade = 'B';
-    else if (s.total >= 120) s.grade = 'C';
-    else if (s.total >= 60) s.grade = 'D';
-    else s.grade = 'F';
+    if (s.total >= 240)
+        s.grade = 'A';
+    else if (s.total >= 180)
+        s.grade = 'B';
+    else if (s.total >= 120)
+        s.grade = 'C';
+    else if (s.total >= 60)
+        s.grade = 'D';
+    else
+        s.grade = 'F';
 }
 
 // Function to add a new student
-void addStudent(vector<Student>& students) {
+void addStudent(vector<Student>& students)
+{
 	system("cls");
     Student s;
     cout << "Enter Student ID: ";
@@ -112,11 +123,13 @@ void addStudent(vector<Student>& students) {
     cin.ignore();  // Clear newline from previous input
     getline(cin, s.name);
     cout << "Enter marks for 3 subjects (0-100 each):" << endl;
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++)
+    {
         cout << "Subject " << (i + 1) << ": ";
         cin >> s.marks[i];
         // Basic validation
-        if (s.marks[i] < 0 || s.marks[i] > 100) {
+        if (s.marks[i] < 0 || s.marks[i] > 100)
+        {
             cout << "Invalid mark! Setting to 0." << endl;
             s.marks[i] = 0;
         }
@@ -128,15 +141,18 @@ void addStudent(vector<Student>& students) {
 }
 
 // Function to display all students
-void displayStudents(vector<Student>& students) {
+void displayStudents(vector<Student>& students)
+{
 	system("cls");
-    if (students.empty()) {
+    if (students.empty())
+    {
         cout << "No students to display." << endl;
         return;
     }
     cout << "ID\tName\t\tMarks\t\tTotal\tPercentage\tGrade" << endl;
     cout << "-----------------------------------------------------------------------" << endl;
-    for (auto& s : students) {
+    for (auto& s : students)
+    {
         cout << s.id << "\t" << s.name << setw(17 - s.name.size());
         for (int mark : s.marks) cout << mark << " ";
         cout << "\t" << s.total << setw(11) << s.percentage << setw(13) << s.grade << endl;
@@ -147,56 +163,71 @@ void displayStudents(vector<Student>& students) {
 }
 
 // Function to search students by ID or name
-void searchStudent(vector<Student>& students) {
+void searchStudent(vector<Student>& students)
+{
 	system("cls");
     int choice;
     cout << "Search by: 1. ID  2. Name" << endl;
     cin >> choice;
-    if (choice == 1) {
+    if (choice == 1)
+    {
         string id;
         cout << "Enter ID: ";
         cin >> id;
-        for (const auto& s : students) {
-            if (s.id == id) {
+        for (const auto& s : students)
+        {
+            if (s.id == id)
+            {
                 cout << "Found: " << s.id << ", " << s.name << ", Total: " << s.total << ", Grade: " << s.grade << endl;
                 return;
             }
         }
         cout << "Student not found." << endl;
-    } else if (choice == 2) {
+    }
+    else if (choice == 2)
+    {
         string name;
         cout << "Enter Name: ";
         cin.ignore();
         getline(cin, name);
-        for (const auto& s : students) {
-            if (s.name == name) {
+        for (const auto& s : students)
+        {
+            if (s.name == name)
+            {
                 cout << "Found: " << s.id << ", " << s.name << ", Total: " << s.total << ", Grade: " << s.grade << endl;
                 return;
             }
         }
         cout << "Student not found." << endl;
-    } else {
+    }
+    else
+    {
         cout << "Invalid choice." << endl;
     }
 }
 
 // Function to update a student by ID
-void updateStudent(vector<Student>& students) {
+void updateStudent(vector<Student>& students)
+{
 	system("cls");
     string id;
     cout << "Enter Student ID to update: ";
     cin >> id;
-    for (auto& s : students) {
-        if (s.id == id) {
+    for (auto& s : students)
+    {
+        if (s.id == id)
+        {
             cout << "Updating " << s.name << endl;
             cout << "Enter new Name: ";
             cin.ignore();
             getline(cin, s.name);
             cout << "Enter new marks for 3 subjects:" << endl;
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 3; i++)
+            {
                 cout << "Subject " << (i + 1) << ": ";
                 cin >> s.marks[i];
-                if (s.marks[i] < 0 || s.marks[i] > 100) s.marks[i] = 0;
+                if (s.marks[i] < 0 || s.marks[i] > 100)
+                    s.marks[i] = 0;
             }
             calculateTotalAndGrade(s);
             cout << "Student updated!" << endl;
@@ -207,16 +238,20 @@ void updateStudent(vector<Student>& students) {
 }
 
 // Function to save students to file
-void saveToFile(vector<Student>& students, string& filename) {
+void saveToFile(vector<Student>& students, string& filename)
+{
     ofstream file(filename);
     system("cls");
-    if (!file) {
+    if (!file)
+    {
         cout << "Error opening file for saving." << endl;
         return;
     }
-    for (const auto& s : students) {
+    for (const auto& s : students)
+    {
         file << s.id << "," << s.name << ",";
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++)
+        {
             file << s.marks[i];
             if (i < 2) file << ",";
         }
@@ -230,15 +265,18 @@ void saveToFile(vector<Student>& students, string& filename) {
 }
 
 // Function to load students from file
-void loadFromFile(vector<Student>& students, string& filename) {
+void loadFromFile(vector<Student>& students, string& filename)
+{
     ifstream file(filename);
-    if (!file) {
+    if (!file)
+    {
         cout << "File not found. Starting with empty records." << endl;
         return;
     }
     students.clear();
     string line;
-    while (getline(file, line)) {
+    while (getline(file, line))
+    {
         Student s;
         int pos = 0;
         // Parse ID
@@ -250,7 +288,8 @@ void loadFromFile(vector<Student>& students, string& filename) {
         s.name = line.substr(0, pos);
         line = line.substr(pos + 1);
         // Parse Marks
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++)
+        {
             pos = line.find(",");
             s.marks[i] = stoi(line.substr(0, pos));
             line = line.substr(pos + 1);
