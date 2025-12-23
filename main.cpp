@@ -3,8 +3,6 @@
 #include <string>
 #include <vector>
 #include <iomanip>
-#include <thread>
-#include <chrono>
 
 using namespace std;
 
@@ -22,7 +20,6 @@ struct Student
 
 //prototyping all the functions
 void wrongOptionError();
-void printWithDelay(string, int);
 void calculateTotalAndGrade(Student&);
 void addStudent(vector<Student>&);
 void displayStudents(vector<Student>&);
@@ -44,13 +41,13 @@ int main()
     do
     {
     	system("cls");
-        cout << "\nStudent Record Management System" << endl;
+        cout << "\nStudent Record Management System" << endl << endl;
         cout << "1. Add Student" << endl;
         cout << "2. Display All Students" << endl;
         cout << "3. Search Student" << endl;
         cout << "4. Update Student" << endl;
         cout << "5. Save Records" << endl;
-        cout << "6. Exit" << endl;
+        cout << "6. Exit" << endl << endl;
         cout << "Enter choice: ";
         cin >> choice;
 
@@ -73,21 +70,10 @@ int main()
 void wrongOptionError()
 {
 	system("cls");
-	printWithDelay("Wrong Option Entered... ", 150);
+	cout << "Wrong Option Entered... " << endl;
 	cout << endl << "Press Enter to Exit" << endl;
 	cin.ignore();
 	cin.get();
-}
-
-// Function to print string on console character by character with delay
-void printWithDelay(string data, int delay)
-{
-    for (int i = 0; i < data.size(); i++)
-    {
-        cout << data.at(i);
-        this_thread::sleep_for(chrono::milliseconds(delay));
-    }
-    cout << endl;
 }
 
 // Function to calculate total and grade for a student
@@ -98,7 +84,7 @@ void calculateTotalAndGrade(Student& s) {
         s.total += s.marks[i];
     }
     // Percentage based on 300 marks
-    s.percentage = (float)(((float)s.total / 300) * 100);
+    s.percentage = ((float)s.total / 300) * 100;
     // Grade Calculation
     if (s.total >= 240)
         s.grade = 'A';
@@ -136,8 +122,10 @@ void addStudent(vector<Student>& students)
     }
     calculateTotalAndGrade(s);
     students.push_back(s);
-    printWithDelay("Student added successfully!", 150);
-    this_thread::sleep_for(chrono::seconds(1));
+    cout << "Student added successfully!" << endl;
+    cout << endl << "Press Enter to Exit" << endl;
+    cin.ignore();
+    cin.get();
 }
 
 // Function to display all students
@@ -147,6 +135,9 @@ void displayStudents(vector<Student>& students)
     if (students.empty())
     {
         cout << "No students to display." << endl;
+        cout << endl << "Press Enter to Exit" << endl;
+        cin.ignore();
+        cin.get();
         return;
     }
     cout << "ID\tName\t\tMarks\t\tTotal\tPercentage\tGrade" << endl;
@@ -179,10 +170,16 @@ void searchStudent(vector<Student>& students)
             if (s.id == id)
             {
                 cout << "Found: " << s.id << ", " << s.name << ", Total: " << s.total << ", Grade: " << s.grade << endl;
+                cout << endl << "Press Enter to Exit" << endl;
+                cin.ignore();
+                cin.get();
                 return;
             }
         }
         cout << "Student not found." << endl;
+        cout << endl << "Press Enter to Exit" << endl;
+        cin.ignore();
+        cin.get();
     }
     else if (choice == 2)
     {
@@ -195,10 +192,16 @@ void searchStudent(vector<Student>& students)
             if (s.name == name)
             {
                 cout << "Found: " << s.id << ", " << s.name << ", Total: " << s.total << ", Grade: " << s.grade << endl;
+                cout << endl << "Press Enter to Exit" << endl;
+                cin.ignore();
+                cin.get();
                 return;
             }
         }
         cout << "Student not found." << endl;
+        cout << endl << "Press Enter to Exit" << endl;
+        cin.ignore();
+        cin.get();
     }
     else
     {
@@ -235,6 +238,9 @@ void updateStudent(vector<Student>& students)
         }
     }
     cout << "Student not found." << endl;
+    cout << endl << "Press Enter to Exit" << endl;
+    cin.ignore();
+    cin.get();
 }
 
 // Function to save students to file
@@ -258,7 +264,7 @@ void saveToFile(vector<Student>& students, string& filename)
         file << "," << s.total << "," << s.percentage << "," << s.grade << endl;
     }
     file.close();
-    cout << "Records saved to " << filename << endl;
+    cout << "Records saved to "  << filename << endl;
     cout << endl << "Press Enter to Exit" << endl;
     cin.ignore();
     cin.get();
