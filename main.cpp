@@ -10,7 +10,7 @@ int maxStudents = 100;  // Maximum students allowed
 // Struct to represent a student record
 struct Student
 {
-    int id;
+    string id;
     string name;
     int marks[3];  // Marks for 3 subjects
     int total;
@@ -282,7 +282,7 @@ void loadFromFile(Student students[], int& studentCount, string& filename)
         Student s;
         int pos = 0;
         pos = line.find(",");
-        s.id = stoi(line.substr(0, pos));
+        s.id = line.substr(0, pos);
         line = line.substr(pos + 1);
 
         pos = line.find(",");
